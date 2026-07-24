@@ -1,0 +1,30 @@
+# Render Free tier sleep 방지 — /health 주기적 ping
+# 사전 설정: GitHub repo Settings → Secrets → RENDER_URL
+# 예: https://healing-trip.onrender.com
+
+name: Keep Alive
+
+on:
+  schedule:
+    # 약 14분마다 (Render idle ~15분 전 깨우기)
+    - cron: "*/14 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render health
+        env:
+          RENDER_URL: ${{ secrets.RENDER_URL }}
+        run: |
+          if [ -z "$RENDER_URL" ]; then
+            echo "RENDER_URL secret이 없습니다. Settings → Secrets and variables → Actions 에 추가하세요."
+            exit 1
+          fi
+          # trailing slash 제거 후 /health 호출
+          BASE="${RENDER_URL%/}"
+          echo "GET ${BASE}/health"
+          curl -fsS --retry 2 --retry-delay 3 --max-time 30 "${BASE}/health"
+          echo
+          echo "ok"
