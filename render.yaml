@@ -1,0 +1,32 @@
+# Render Blueprint — Python Web Service only (no vite on this service)
+# Dashboard Build Command must be ONLY: pip install -r requirements.txt
+# Do NOT add "vite build" here; frontend is pre-built and served by FastAPI.
+
+services:
+  - type: web
+    name: healing-trip
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: sh -c "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.8"
+      - key: DATABASE_URL
+        value: sqlite:///./app.db
+      - key: TEMPLESTAY_API_KEY
+        sync: false
+      - key: TEMPLESTAY_BASE_URL
+        value: https://openapi.gg.go.kr/Templestay
+      - key: TOURRESORT_API_KEY
+        sync: false
+      - key: TOURRESORT_BASE_URL
+        value: https://openapi.gg.go.kr/TouristResort
+      - key: TOURGUIDE_API_KEY
+        sync: false
+      - key: TOURGUIDE_BASE_URL
+        value: https://api.odcloud.kr/api/15123631/v1/uddi:33264f0a-158f-4a5d-95cd-99c740c8a097
+      - key: CONCERT_API_KEY
+        sync: false
+      - key: CONCERT_BASE_URL
+        value: https://openapi.gg.go.kr/Ggculturevent

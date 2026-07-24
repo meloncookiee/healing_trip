@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
@@ -392,3 +396,22 @@ def nearby_attractions(
     )
     items = [item for _, item in scored[:limit]]
     return {"items": items, "total": len(scored)}
+
+
+FRONTEND_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+FRONTEND_BASE = "/Healing_Trip_Gyeonggi"
+
+
+@app.get("/")
+def root():
+    if (FRONTEND_DIST / "index.html").is_file():
+        return RedirectResponse(url=f"{FRONTEND_BASE}/")
+    return {"service": "healing-trip-gyeonggi", "docs": "/docs"}
+
+
+if FRONTEND_DIST.is_dir():
+    app.mount(
+        FRONTEND_BASE,
+        StaticFiles(directory=str(FRONTEND_DIST), html=True),
+        name="frontend",
+    )

@@ -2,7 +2,10 @@
 // 백엔드(FastAPI) 호출 함수 모음
 // 화면은 여기 함수만 부른다. 공공데이터 API는 직접 호출하지 않는다.
 // ---------------------------------------------------------------
-const BASE_URL = 'http://127.0.0.1:8001'
+// 개발: Vite(5173) → 로컬 FastAPI. 배포: 같은 오리진(빈 문자열)으로 API 호출
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ??
+  (import.meta.env.DEV ? 'http://127.0.0.1:8001' : '')
 
 async function request(path, options = {}) {
   const res = await fetch(`${BASE_URL}${path}`, {
