@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <!-- 목탁 본체 -->
+  <ellipse cx="20" cy="30" rx="14" ry="9" fill="#6B3F1F"/>
+  <ellipse cx="20" cy="28.5" rx="12" ry="7" fill="#A86B3C"/>
+  <path d="M8 30 Q20 18 32 30" fill="none" stroke="#4A2A12" stroke-width="1.8"/>
+  <circle cx="20" cy="28.5" r="1.6" fill="#2E180A"/>
+  <rect x="17.8" y="16" width="4.4" height="11" rx="1.6" fill="#5C3A1E"/>
+  <!-- 내려치는 목탁채 -->
+  <g transform="rotate(-42 34 14)">
+    <rect x="31.5" y="2" width="4" height="24" rx="1.8" fill="#3D2412"/>
+    <ellipse cx="33.5" cy="3" rx="3" ry="2.4" fill="#2A1608"/>
+  </g>
+  <!-- 치는 순간 표시 -->
+  <path d="M30 18 l4 -3 M31.5 20.5 l5 0 M30 23 l4 3" stroke="#E8C98A" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="29" cy="20" r="1.2" fill="#F0D9A8" opacity="0.85"/>
+</svg>
